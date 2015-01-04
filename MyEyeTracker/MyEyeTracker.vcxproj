@@ -123,6 +123,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="EyeTrackerLauncher.cpp" />
+    <ClCompile Include="GazeDataWrapper.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainLoopRunner.cpp" />
     <ClCompile Include="Tracker.cpp" />
@@ -131,6 +132,7 @@
     <ClInclude Include="Browser.h" />
     <ClInclude Include="Calibrator.h" />
     <ClInclude Include="EyeTrackerLauncher.h" />
+    <ClInclude Include="GazeDataWrapper.h" />
     <ClInclude Include="MainLoopRunner.h" />
     <ClInclude Include="Tracker.h" />
   </ItemGroup>

@@ -3,6 +3,7 @@
 
 #include "Tracker.h"
 #include "MainLoopRunner.h"
+#include "GazeDataWrapper.h"
 #include <string>
 #include <tobii/sdk/cpp/Library.hpp>
 
@@ -25,8 +26,9 @@ private:
 
 	std::string trackerId;
 	bool trackerFound;
-	Tracker *tracker;
 	MainLoopRunner runner;
+	GazeDataWrapper *gazeDataWrapper;
+	Tracker *tracker;
 };
 
 #endif

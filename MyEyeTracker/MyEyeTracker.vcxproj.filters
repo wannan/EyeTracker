@@ -27,6 +27,9 @@
     <ClCompile Include="Tracker.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="GazeDataWrapper.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EyeTrackerLauncher.h">
@@ -42,6 +45,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="MainLoopRunner.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="GazeDataWrapper.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

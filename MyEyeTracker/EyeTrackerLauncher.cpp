@@ -3,6 +3,7 @@
 #include "Calibrator.h"
 #include "Tracker.h"
 #include "MainLoopRunner.h"
+#include "GazeDataWrapper.h"
 #include <iostream>
 #include <iomanip>
 #include <boost/program_options.hpp>
@@ -60,16 +61,17 @@ void EyeTrackerLauncher::startTracking() {
 	if (!tracker->isConnected()) {
 		connectEyeTracker();
 	}
+
+	gazeDataWrapper = new GazeDataWrapper();
+	gazeDataWrapper->setAppWidth(400);
+	gazeDataWrapper->setAppHeight(200);
+
 	tracker->addGazeDataReceivedListener(boost::bind(&EyeTrackerLauncher::onGazeDataReceived, this, _1));
 	tracker->startTracking();
 }
 	
 void EyeTrackerLauncher::onGazeDataReceived(tetio::GazeDataItem::pointer_t data) {
-	cout
-		<< data->timestamp << " "
-		<< data->leftGazePoint2d << " "
-		<< data->rightGazePoint2d << " "
-		<< endl;
+	gazeDataWrapper->setGazeRawData(data);
 }
 	
 void EyeTrackerLauncher::stopTracking() {
