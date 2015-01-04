@@ -6,9 +6,13 @@ namespace tetio = tobii::sdk::cpp;
 
 Tracker::Tracker(tetio::EyeTrackerInfo::pointer_t info): eyeTrackerInfo(info){}
 
-void Tracker::connectTo(tetio::MainLoop& mainLoop) {
+void Tracker::connect(tetio::MainLoop& mainLoop) {
 	eyeTracker = eyeTrackerInfo->getEyeTrackerFactory()->createEyeTracker(mainLoop);
 	eyeTracker->addConnectionErrorListener(boost::bind(&Tracker::handleConnectionError, this, _1));
+}
+
+void Tracker::disconnect() {
+	eyeTracker = NULL;
 }
 
 bool Tracker::isConnected() {
@@ -33,8 +37,45 @@ void Tracker::stopTracking() {
 		eyeTracker->stopTracking();
 }
 
-void Tracker::handleConnectionError(uint32_t errorCode)
-{
+void Tracker::startCalibration() {
+	if (isConnected())
+		eyeTracker->startCalibration();
+}
+
+void Tracker::stopCalibration() {
+	if (isConnected())
+		eyeTracker->stopCalibration();
+}
+
+void Tracker::clearCalibration() {
+	if (isConnected())
+		eyeTracker->clearCalibration();
+}
+
+void Tracker::computeCalibrationAsync(const tetio::EyeTracker::async_callback_t &completedHandler) {
+	if (isConnected())
+		eyeTracker->computeCalibrationAsync(completedHandler);
+}
+
+void Tracker::addCalibrationPointAsync(const tetio::Point2d &point2d, const tetio::EyeTracker::async_callback_t &completedHandler) {
+	if (isConnected())
+		eyeTracker->addCalibrationPointAsync(point2d, completedHandler);
+}
+
+void Tracker::removeCalibrationPoint(const tetio::Point2d& point) {
+	if (isConnected())
+		eyeTracker->removeCalibrationPoint(point);
+}
+
+tetio::Calibration::pointer_t Tracker::getCalibration() {
+	if (isConnected())
+		return eyeTracker->getCalibration();
+	else 
+		return NULL;
+}
+
+
+void Tracker::handleConnectionError(uint32_t errorCode) {
 	eyeTracker.reset();
 	//emit connectionError(errorCode);
 }

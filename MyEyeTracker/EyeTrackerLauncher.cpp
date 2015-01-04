@@ -41,7 +41,7 @@ void EyeTrackerLauncher::connectEyeTracker() {
 	if (tracker == NULL)
 		return;
 	runner.start();
-	tracker->connectTo(runner.getMainLoop());
+	tracker->connect(runner.getMainLoop());
 }
 	
 void EyeTrackerLauncher::runCalibration() {
@@ -85,4 +85,5 @@ void EyeTrackerLauncher::stopTracking() {
 
 void EyeTrackerLauncher::disconnectEyeTracker() {
 	runner.stop();
+	tracker->disconnect();
 }
