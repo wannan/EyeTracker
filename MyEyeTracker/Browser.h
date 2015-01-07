@@ -18,6 +18,8 @@ public:
 private:	
 	void onEyeTrackerBrowserEventList(tetio::EyeTrackerBrowser::event_type_t type, tetio::EyeTrackerInfo::pointer_t info);
 	void onEyeTrackerBrowserEventPrintInfo(tetio::EyeTrackerBrowser::event_type_t type, tetio::EyeTrackerInfo::pointer_t info);
+	std::string trackerId_;
+	bool trackerFound_;
 };
 
 #endif

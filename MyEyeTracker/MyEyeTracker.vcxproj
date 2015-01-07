@@ -122,6 +122,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Browser.cpp" />
+    <ClCompile Include="Calibrator.cpp" />
     <ClCompile Include="EyeTrackerLauncher.cpp" />
     <ClCompile Include="GazeDataWrapper.cpp" />
     <ClCompile Include="Main.cpp" />
