@@ -20,15 +20,16 @@ public:
 	void stopTracking();
 	void startCalibration();
 	void stopCalibration();
-	void clearCalibration();
 	/*
 	异步计算校准数据，参数completedHandler为计算完毕后的回调函数
 	*/
 	void computeCalibrationAsync(const tetio::EyeTracker::async_callback_t &completedHandler);
+	bool computeCalibration();
 	/*
 	异步添加校准点，参数completedHandler为添加完毕后的回调函数，此方法给回调函数传入一个uint32_t类型的参数e，当e为0则校准成功，否则失败
 	*/
-	void addCalibrationPointAsync(const tetio::Point2d &point2d, const tetio::EyeTracker::async_callback_t &completedHandler);
+	void addCalibrationPointAsync(const tetio::Point2d &point, const tetio::EyeTracker::async_callback_t &completedHandler);
+	void addCalibrationPointAsync(const tetio::Point2d &point);
 	void removeCalibrationPoint(const tetio::Point2d& point);
 	tetio::Calibration::pointer_t getCalibration();
 

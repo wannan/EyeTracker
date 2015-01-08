@@ -47,19 +47,33 @@ void Tracker::stopCalibration() {
 		eyeTracker->stopCalibration();
 }
 
-void Tracker::clearCalibration() {
-	if (isConnected())
-		eyeTracker->clearCalibration();
-}
-
 void Tracker::computeCalibrationAsync(const tetio::EyeTracker::async_callback_t &completedHandler) {
 	if (isConnected())
 		eyeTracker->computeCalibrationAsync(completedHandler);
 }
 
+bool Tracker::computeCalibration() {
+	if (isConnected()) {
+		try {
+			eyeTracker->computeCalibration();
+		}
+		catch (tetio::EyeTrackerException e) {
+			std::cout<<"errorCode: " + e.getErrorCode();
+			return false;
+		}		
+		return true;
+	}
+	return false;
+}
+
 void Tracker::addCalibrationPointAsync(const tetio::Point2d &point2d, const tetio::EyeTracker::async_callback_t &completedHandler) {
 	if (isConnected())
 		eyeTracker->addCalibrationPointAsync(point2d, completedHandler);
+}
+
+void Tracker::addCalibrationPointAsync(const tetio::Point2d &point2d) {
+	if (isConnected())
+		eyeTracker->addCalibrationPoint(point2d);
 }
 
 void Tracker::removeCalibrationPoint(const tetio::Point2d& point) {
