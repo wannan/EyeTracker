@@ -12,6 +12,10 @@ class Calibrator
 {
 public:
 	Calibrator(Tracker *t);
+	void startCalibration();
+	void addPoint(double x, double y);
+	void stopCalibration();
+
 	tetio::Calibration::pointer_t runCalibration();
 	void pointCompletedEvent();
 	void computeCompletedEvent();

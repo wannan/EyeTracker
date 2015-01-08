@@ -137,6 +137,7 @@
     <ClInclude Include="GazeDataWrapper.h" />
     <ClInclude Include="MainLoopRunner.h" />
     <ClInclude Include="Tracker.h" />
+    <ClInclude Include="TrackerController.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
