@@ -1,5 +1,6 @@
 #include "Browser.h"
 #include "MainLoopRunner.h"
+#include "Tracker.h"
 #include <iostream>
 #include <iomanip>
 #include <boost/program_options.hpp>
@@ -100,4 +101,9 @@ void startEyeTrackerLookUp(EyeTrackerBrowser::pointer_t browser, std::string bro
 	browser->stop(); // NOTE this is a blocking operation.
 }
 
+Tracker* Browser::getTracker() {
+
+	Tracker *tracker = new Tracker(info);
+	return tracker;
+}
 

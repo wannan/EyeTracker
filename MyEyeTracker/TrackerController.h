@@ -4,6 +4,7 @@
 #include "Tracker.h"
 #include "MainLoopRunner.h"
 #include "GazeDataWrapper.h"
+#include "Calibrator.h"
 #include <string>
 #include <tobii/sdk/cpp/Library.hpp>
 
@@ -16,19 +17,18 @@ public:
 	double getEyePositionY();
 
 private:
+	void initGazeDataWrapper(int width, int height);
 	void browseEyeTrackers();
 	void connectEyeTracker();
 	void runCalibration();
 	void startTracking();
 	void onGazeDataReceived(tetio::GazeDataItem::pointer_t data);
-	void stopTracking();
-	void disconnectEyeTracker();
 
 	std::string trackerId;
-	bool trackerFound;
 	MainLoopRunner runner;
 	GazeDataWrapper *gazeDataWrapper;
 	Tracker *tracker;
+	Calibrator *calibrator;
 };
 
 #endif

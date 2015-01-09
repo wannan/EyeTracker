@@ -1,22 +1,24 @@
 #include "TrackerController.h"
+#include "Browser.h"
 
 void TrackerController::startCalibration(int width, int height) {
-	gazeDataWrapper = new GazeDataWrapper();
-	gazeDataWrapper->setAppWidth(width);
-	gazeDataWrapper->setAppHeight(height);
-
+	initGazeDataWrapper(width, height);
 	browseEyeTrackers();
 	connectEyeTracker();
 	runCalibration();
 }
 
 void TrackerController::addCalibrationPoint(double x, double y) {
-	
+	calibrator->addCalibrationPoint(x, y);
 }
 
 void TrackerController::stopCalibration() {
-	tracker->stopCalibration();
-	startTracking();
+	if (calibrator->stopCalibration()) {
+		startTracking();
+	}
+	else {
+		std::cout << "calibration failed";
+	}
 }
 
 double TrackerController::getEyePositionX() {
@@ -27,9 +29,15 @@ double TrackerController::getEyePositionY() {
 	return gazeDataWrapper->getEyePositionY();
 }
 
+void TrackerController::initGazeDataWrapper(int width, int height) {
+	gazeDataWrapper = new GazeDataWrapper();
+	gazeDataWrapper->setAppWidth(width);
+	gazeDataWrapper->setAppHeight(height);
+}
+
 void TrackerController::browseEyeTrackers() {
-	//Browser *browser = new Browser();
-	//tracker = browser->getTracker(trackerId);
+	Browser *browser = new Browser();
+	tracker = browser->getTracker();
 }
 
 void TrackerController::connectEyeTracker() {
@@ -45,8 +53,8 @@ void TrackerController::runCalibration() {
 	if (!tracker->isConnected()) {
 		connectEyeTracker();
 	}
-	//Calibrator *calibrator = new Calibrator(tracker);
-	//calibrator->...
+	calibrator = new Calibrator(tracker);
+	calibrator->startCalibration();
 }
 
 void TrackerController::startTracking() {

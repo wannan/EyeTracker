@@ -6,12 +6,23 @@ using namespace tetio;
 
 #define CALIBRATION_POINT_INTERVAL	1000 //ms
 
-Calibrator::Calibrator(Tracker *tracker) :
-tracker(tracker)
-{
+Calibrator::Calibrator(Tracker *tracker) : tracker(tracker){}
+
+void Calibrator::startCalibration() {
+	tracker->startCalibration();
 }
 
-Calibration::pointer_t Calibrator::runCalibration()
+bool Calibrator::stopCalibration() {
+	bool result = tracker->computeCalibration();
+	tracker->stopCalibration();
+	return result;
+}
+void Calibrator::addCalibrationPoint(double x, double y) {
+	Point2d point2d = Point2d(x, y);
+	tracker->addCalibrationPoint(point2d);
+}
+/*
+ Calibration::pointer_t Calibrator::runCalibration()
 {
 	createPointList();
 
@@ -102,5 +113,5 @@ void Calibrator::abortCalibrationHandler()
 	m_sleepTimer.stop();
 	m_calibrationDlg.close();
 }
-
+*/
 

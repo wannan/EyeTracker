@@ -59,6 +59,7 @@ bool Tracker::computeCalibration() {
 		}
 		catch (tetio::EyeTrackerException e) {
 			std::cout<<"errorCode: " + e.getErrorCode();
+			eyeTracker->clearCalibration();
 			return false;
 		}		
 		return true;
@@ -71,23 +72,10 @@ void Tracker::addCalibrationPointAsync(const tetio::Point2d &point2d, const teti
 		eyeTracker->addCalibrationPointAsync(point2d, completedHandler);
 }
 
-void Tracker::addCalibrationPointAsync(const tetio::Point2d &point2d) {
+void Tracker::addCalibrationPoint(const tetio::Point2d &point2d) {
 	if (isConnected())
 		eyeTracker->addCalibrationPoint(point2d);
 }
-
-void Tracker::removeCalibrationPoint(const tetio::Point2d& point) {
-	if (isConnected())
-		eyeTracker->removeCalibrationPoint(point);
-}
-
-tetio::Calibration::pointer_t Tracker::getCalibration() {
-	if (isConnected())
-		return eyeTracker->getCalibration();
-	else 
-		return NULL;
-}
-
 
 void Tracker::handleConnectionError(uint32_t errorCode) {
 	eyeTracker.reset();

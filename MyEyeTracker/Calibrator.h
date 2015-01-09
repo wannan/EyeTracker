@@ -12,13 +12,16 @@ class Calibrator
 {
 public:
 	Calibrator(Tracker *t);
-	tetio::Calibration::pointer_t runCalibration();
-	void pointCompletedEvent();
+	void startCalibration();
+	bool stopCalibration();
+	void addCalibrationPoint(double x, double y);
+	/*void pointCompletedEvent();
 	void computeCompletedEvent();
 	void computeFailedEvent();
-	void abortCalibrationEvent();
+	void abortCalibrationEvent();*/
 
 private:
+	/*tetio::Calibration::pointer_t runCalibration();
 	void startNextOrFinish();
 	void timerTickHandler();
 	void pointCompletedHandler();
@@ -27,11 +30,11 @@ private:
 	void computeFailedHandler();
 	void createPointList();
 	void pointCompleted(uint32_t e);
-	void computeCompleted(uint32_t e);
+	void computeCompleted(uint32_t e);*/
 
 	Tracker *tracker;
-	std::queue<tetio::Point2d> m_calibrationPoints;
-	tetio::Calibration::pointer_t m_calibrationResult;
+	//std::queue<tetio::Point2d> m_calibrationPoints;
+	//tetio::Calibration::pointer_t m_calibrationResult;
 
 };
 
