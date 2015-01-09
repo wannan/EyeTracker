@@ -30,6 +30,7 @@ trackerFound_(false)
 {
 }
 
+/*
 void Browser::listEyeTrackers()
 {
 	cout << "Browsing for Eye Trackers..." << endl;
@@ -71,13 +72,14 @@ void Browser::onEyeTrackerBrowserEventList(EyeTrackerBrowser::event_type_t type,
 			<< endl;
 	}
 }
+*/
 
 void Browser::onEyeTrackerBrowserEventPrintInfo(EyeTrackerBrowser::event_type_t type, EyeTrackerInfo::pointer_t info)
 {
 	if (type == EyeTrackerBrowser::TRACKER_FOUND && info->getProductId() == trackerId_)
 	{
 		trackerFound_ = true;
-
+		eyeTrackerInfo = info;
 		cout
 			<< "Product ID: " << info->getProductId() << endl
 			<< "Given name: " << info->getGivenName() << endl
@@ -101,9 +103,21 @@ void startEyeTrackerLookUp(EyeTrackerBrowser::pointer_t browser, std::string bro
 	browser->stop(); // NOTE this is a blocking operation.
 }
 
-Tracker* Browser::getTracker() {
+Tracker* Browser::getTracker(std::string& tracker_id) {
+	trackerId_ = tracker_id;
+	trackerFound_ = false;
 
-	Tracker *tracker = new Tracker(info);
+	MainLoopRunner runner;
+	runner.start();
+	EyeTrackerBrowser::pointer_t browser(EyeTrackerBrowserFactory::createBrowser(runner.getMainLoop()));
+	browser->addEventListener(boost::bind(&Browser::onEyeTrackerBrowserEventPrintInfo, this, _1, _2));
+	startEyeTrackerLookUp(browser, "Browsing for " + tracker_id + ", please wait ...");
+
+	if (!trackerFound_)
+	{
+		cout << "Could not find any tracker with name: " << trackerId_ << endl;
+	}
+	Tracker *tracker = new Tracker(eyeTrackerInfo);
 	return tracker;
 }
 

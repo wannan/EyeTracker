@@ -37,7 +37,8 @@ void TrackerController::initGazeDataWrapper(int width, int height) {
 
 void TrackerController::browseEyeTrackers() {
 	Browser *browser = new Browser();
-	tracker = browser->getTracker();
+	trackerId = "";   // give the specified tracker ID for test
+	tracker = browser->getTracker(trackerId);
 }
 
 void TrackerController::connectEyeTracker() {

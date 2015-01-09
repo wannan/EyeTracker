@@ -14,8 +14,7 @@ public:
 	Browser();
 	void listEyeTrackers();
 	void printEyeTrackerInfo(std::string& tracker_id);
-	Tracker* getTracker();
-	std::string getFirstTracker();
+	Tracker* getTracker(std::string& tracker_id);
 
 private:	
 	void onEyeTrackerBrowserEventList(tetio::EyeTrackerBrowser::event_type_t type, tetio::EyeTrackerInfo::pointer_t info);
