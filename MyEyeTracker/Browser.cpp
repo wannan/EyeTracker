@@ -116,6 +116,7 @@ Tracker* Browser::getTracker(std::string& tracker_id) {
 	if (!trackerFound_)
 	{
 		cout << "Could not find any tracker with name: " << trackerId_ << endl;
+		return NULL;
 	}
 	Tracker *tracker = new Tracker(eyeTrackerInfo);
 	return tracker;
