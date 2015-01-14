@@ -1,4 +1,3 @@
-//#include "EyeTrackerLauncher.h"
 #include "TrackerController.h"
 #include <tobii/sdk/cpp/Library.hpp>
 #include <windows.h>
@@ -10,7 +9,6 @@ namespace tetio = tobii::sdk::cpp;
 int main(int argc, char *argv[])
 {
 	tetio::Library::init();
-	//return EyeTrackerLauncher().run();
 	std::cout << "test running..." << std::endl;
 	TrackerController *controller = new TrackerController();
 	controller->startCalibration(200, 400);
@@ -19,6 +17,10 @@ int main(int argc, char *argv[])
 	Sleep(CALIBRATION_POINT_INTERVAL);
 	std::cout << "wakeup..." << std::endl;
 	controller->stopCalibration();
+	boost::this_thread::sleep(boost::posix_time::seconds(3));
+	controller->disconnect();
 	std::cout << controller->getEyePositionX() << " " << controller->getEyePositionY();
+	int a;
+	std::cin >> a;
 	return 1;
 }

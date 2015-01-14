@@ -36,8 +36,10 @@ void GazeDataWrapper::calEyePosition(double leftX, double leftY, double rightX, 
 	
 void GazeDataWrapper::setEyePositionX(double x) {
 	eyePositionX = x;
+	std::cout << "x=" << x << " ";
 }
 	
 void GazeDataWrapper::setEyePositionY(double y) {
 	eyePositionY = y;
+	std::cout << "y=" << y << std::endl;
 }

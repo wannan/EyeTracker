@@ -15,6 +15,7 @@ public:
 	void stopCalibration();
 	double getEyePositionX();
 	double getEyePositionY();
+	void disconnect();
 
 private:
 	void initGazeDataWrapper(int width, int height);

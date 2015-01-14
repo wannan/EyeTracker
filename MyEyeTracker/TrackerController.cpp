@@ -24,6 +24,7 @@ void TrackerController::stopCalibration() {
 	}
 	else {
 		std::cout << "calibration failed" << std::endl;
+		startTracking();
 	}
 }
 
@@ -44,7 +45,7 @@ void TrackerController::initGazeDataWrapper(int width, int height) {
 
 void TrackerController::browseEyeTrackers() {
 	Browser *browser = new Browser();
-	trackerId = "";   // give the specified tracker ID for test
+	trackerId = "TX060-301-20900183";   // give the specified tracker ID for test
 	tracker = browser->getTracker(trackerId);
 }
 
@@ -84,4 +85,9 @@ void TrackerController::startTracking() {
 void TrackerController::onGazeDataReceived(tetio::GazeDataItem::pointer_t data) {
 	std::cout << "TrackerController::onGazeDataReceived()" << std::endl;
 	gazeDataWrapper->setGazeRawData(data);
+}
+
+void TrackerController::disconnect() {
+	tracker->stopTracking();
+	tracker->disconnect();
 }

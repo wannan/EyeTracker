@@ -53,18 +53,18 @@ void Tracker::computeCalibrationAsync(const tetio::EyeTracker::async_callback_t 
 }
 
 bool Tracker::computeCalibration() {
+	bool result = false;
 	if (isConnected()) {
+		result = true;
 		try {
 			eyeTracker->computeCalibration();
 		}
 		catch (tetio::EyeTrackerException e) {
-			std::cout<<"errorCode: " + e.getErrorCode();
-			eyeTracker->clearCalibration();
-			return false;
+			//std::cout<<"errorCode: " + e.getErrorCode();
+			result = false;
 		}		
-		return true;
 	}
-	return false;
+	return result;
 }
 
 void Tracker::addCalibrationPointAsync(const tetio::Point2d &point2d, const tetio::EyeTracker::async_callback_t &completedHandler) {
